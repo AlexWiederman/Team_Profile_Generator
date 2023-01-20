@@ -6,8 +6,8 @@ const Employee = require("./lib/Employee")
 
 const employee = new Employee();
 
-const id = employee.getId();
-const name = employee.name();
+const Manager = employee.getName();
+
 
 
 
