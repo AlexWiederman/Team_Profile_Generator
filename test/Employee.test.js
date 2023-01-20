@@ -1,6 +1,12 @@
+const { it } = require("node:test");
 const Employee = require("../lib/Employee");
 
 
 describe("Employee", () => {
-    describe("")
+    describe("getName", () => {
+        it('Returns user inputed ID number', () => {
+
+            expect().toEqual
+        })
+    })
 })
