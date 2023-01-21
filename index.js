@@ -15,6 +15,12 @@ var managerHTML
 var internHTML
 var engineerHTML 
 
+var internArray = [];
+var engineerArray = [];
+var managerArray = [];
+var array = [];
+var arrayCard =[];
+
 function manager() {
     inquirer
         .prompt([
@@ -42,7 +48,7 @@ function manager() {
         ])
         .then((data) => {
             managerModel = new Manager(data.name, data.id, data.email, data.officeNumber);
-            managerHTML = managerCard(managerModel)
+            array.push(managerModel)
 
             loopQuestions()
         })
@@ -74,7 +80,8 @@ function engineer() {
         ])
         .then((data) => {
             engineerModel = new Engineer(data.name, data.id, data.email, data.github);
-            engineerHTML = engineerCard(engineerModel)
+            array.push(engineerModel)
+
             loopQuestions()
         })
 }
@@ -106,7 +113,8 @@ function intern() {
         ])
         .then((data) => {
             internModel = new Intern(data.name, data.id, data.email, data.school);
-            internHTML = internCard(internModel)
+            array.push(internModel)
+
             loopQuestions()
         })
 }
@@ -128,8 +136,14 @@ function loopQuestions() {
                 engineer()
             } else {
                 // createFiles()
-                const file = firstHTML + internHTML + managerHTML + engineerHTML + lastHTML;
-                
+                    const cards = createHTML(array)
+                    console.log(array[0].name)
+                    var totalCards = ""
+                for (i=0; i<cards.length;i++) {
+                    totalCards = totalCards + cards[i];
+
+                }
+                const file = firstHTML + totalCards + lastHTML;
                 fs.writeFile('./dist/website.html', file, (err) =>
                     err ? console.log(err) : console.log('Successfully created HTML File!')
                 );
@@ -137,7 +151,26 @@ function loopQuestions() {
         })
 }
 
+function createHTML(array) {
+    for (i=0; i<array.length;i++) {
+        
+        arrayCard[i]=`
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    ${array[i].name} <br>
+                    ${array[i].role} <br>
+                    ID: ${array[i].id} <br>
+                    Email: ${array[i].email} <br>
+                    Office number: ${array[i].officeNumber} <br>
+                    School: ${array[i].school} <br>
+                    Github: ${array[i].github} <br>
+                </div>
+            </div>
+        `;
+    }
+    return arrayCard
 
+}
 
 const firstHTML =
     `
@@ -159,41 +192,6 @@ const lastHTML =
     </body>
     </html>
     `
-const managerCard = ({ name, id, email, officeNumber }) =>
-    `
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    ${name}
-                    ID: ${id}
-                    Email: ${email}
-                    Office number: ${officeNumber}
-                </div>
-            </div>
-        `;
-
-const internCard = ({ name, id, email, school }) =>
-    `
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    ${name}
-                    ID: ${id}
-                    Email: ${email}
-                    School: ${school}
-                </div>
-            </div>
-        `;
-
-const engineerCard = ({ name, id, email, github }) =>
-    `
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        ${name}
-                        ID: ${id}
-                        Email: ${email}
-                        Github: ${github}
-                    </div>
-                </div>
-            `;
 
 //Starting with manager
 var countEngineer = 0;
