@@ -6,7 +6,14 @@ const Employee = require("./lib/Employee");
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager')
 const Intern = require('./lib/Intern')
-var mCard
+
+// Declaring variables globally so they can be read to create the html
+var engineerModel
+var managerModel
+var internModel
+var managerHTML 
+var internHTML
+var engineerHTML 
 
 function manager() {
     inquirer
@@ -34,9 +41,8 @@ function manager() {
 
         ])
         .then((data) => {
-            new Manager(data.name, data.id, data.email, data.officeNumber);
-            mCard = managerCard(data);
-
+            managerModel = new Manager(data.name, data.id, data.email, data.officeNumber);
+            managerHTML = managerCard(managerModel)
 
             loopQuestions()
         })
@@ -65,10 +71,10 @@ function engineer() {
                 name: 'github',
                 message: "Enter Github Username:",
             }
-
         ])
         .then((data) => {
-            new Engineer(data.name, data.id, data.email, data.github);
+            engineerModel = new Engineer(data.name, data.id, data.email, data.github);
+            engineerHTML = engineerCard(engineerModel)
             loopQuestions()
         })
 }
@@ -99,7 +105,8 @@ function intern() {
 
         ])
         .then((data) => {
-            new Intern(data.name, data.id, data.email, data.school);
+            internModel = new Intern(data.name, data.id, data.email, data.school);
+            internHTML = internCard(internModel)
             loopQuestions()
         })
 }
@@ -121,8 +128,8 @@ function loopQuestions() {
                 engineer()
             } else {
                 // createFiles()
-                console.log(mCard)
-                // const file = HTML(mCard);
+                const file = firstHTML + internHTML + managerHTML + engineerHTML + lastHTML;
+                
                 fs.writeFile('./dist/website.html', file, (err) =>
                     err ? console.log(err) : console.log('Successfully created HTML File!')
                 );
@@ -130,47 +137,65 @@ function loopQuestions() {
         })
 }
 
-//Starting with manager
-manager();
-
-HTML = ({ mCard }) =>
-    `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Team Profile</title>
-</head>
-<body>
- ${mCard}
-</body>
-</html>`;
 
 
+const firstHTML =
+    `
+    <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+             <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+            <title>Team Profile</title>
+        </head>
+        <header style="text-align: center;">
+          <h1>Team Profile</h1>
+        </header>
+        <body>
+        `
+const lastHTML =
+    `
+    </body>
+    </html>
+    `
 const managerCard = ({ name, id, email, officeNumber }) =>
     `
-    <div class="card">
-    <div class="card-body">
-      ${name}
-      ${id}
-      ${email}
-      ${officeNumber}
-    </div>
-  </div>`;
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    ${name}
+                    ID: ${id}
+                    Email: ${email}
+                    Office number: ${officeNumber}
+                </div>
+            </div>
+        `;
 
+const internCard = ({ name, id, email, school }) =>
+    `
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    ${name}
+                    ID: ${id}
+                    Email: ${email}
+                    School: ${school}
+                </div>
+            </div>
+        `;
 
-function createFiles() {
+const engineerCard = ({ name, id, email, github }) =>
+    `
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        ${name}
+                        ID: ${id}
+                        Email: ${email}
+                        Github: ${github}
+                    </div>
+                </div>
+            `;
 
-    // Create HTML file
-
-    // fs.writeFile('../dist/website.html', HTMLFile, (err) =>
-    //     err ? console.log(err) : console.log('Successfully created HTML File!')
-    // );
-    // Create CSS
-    // CSSFile = generateCSS(data)
-    // fs.writeFile('../dist/style.css', CSSFile, (err) =>
-    //     err ? console.log(err) : console.log('Successfully created CSS File!')
-    // );
-}
-
+//Starting with manager
+var countEngineer = 0;
+var countIntern = 0;
+manager();
