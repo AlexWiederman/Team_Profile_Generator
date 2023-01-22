@@ -1,12 +1,10 @@
-const { it } = require("node:test");
 const Employee = require("../lib/Employee");
 
 
-describe("Employee", () => {
-    describe("getName", () => {
-        it('Returns user inputed ID number', () => {
+describe("Employee class", () => {
+        it('Returns user inputed data as an object', () => {
+            const user = new Employee('Alex',"23","alex@gmail.com")
 
-            expect().toEqual
+            expect(user).toEqual(expect.objectContaining({name: 'Alex', id: "23", email:"alex@gmail.com"}))
         })
-    })
 })
