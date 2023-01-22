@@ -137,7 +137,8 @@ function loopQuestions() {
             } else {
                 // createFiles()
                     const cards = createHTML(array)
-                    console.log(array[0].name)
+                    console.log(array)
+
                     var totalCards = ""
                 for (i=0; i<cards.length;i++) {
                     totalCards = totalCards + cards[i];
@@ -153,26 +154,54 @@ function loopQuestions() {
 
 function createHTML(array) {
     for (i=0; i<array.length;i++) {
-        
+        console.log(array[i].role)
+        if (array[i].role == 'Intern') {
         arrayCard[i]=`
-        <div class="container-sm">
-            <div class="card" style="width: 18rem;display:inline-block">
-                <div class="card-body">
+        
+            <div class="card" style="display:inline-block">
+                <div class="card-body" style="text-align: center;">
                     ${array[i].name} <br>
                     ${array[i].role} <br>
                     ID: ${array[i].id} <br>
-                    Email: ${array[i].email} <br>
-                    Office number: ${array[i].officeNumber} <br>
+                    <a href = "mailto: ${array[i].email}">${array[i].email}</a> <br>
                     School: ${array[i].school} <br>
-                    Github: ${array[i].github} <br>
                 </div>
             </div>
-        </div>
+        
+        `;
+    } else if (array[i].role == 'Manager') {
+        arrayCard[i]=`
+        
+            <div class="card" style="display:inline-block">
+                <div class="card-body" style="text-align: center;">
+                    ${array[i].name} <br>
+                    ${array[i].role} <br>
+                    ID: ${array[i].id} <br>
+                    <a href = "mailto: ${array[i].email}">${array[i].email}</a> <br>
+                    Office number: ${array[i].officeNumber} <br>
+                </div>
+            </div>
+        
+        `;
 
+    } else if (array[i].role == 'Engineer') {
+        arrayCard[i]=`
+        
+            <div class="card" style="display:inline-block">
+                <div class="card-body" style="text-align: center;">
+                    ${array[i].name} <br>
+                    ${array[i].role} <br>
+                    ID: ${array[i].id} <br>
+                    <a href = "mailto: ${array[i].email}">${array[i].email}</a> <br>
+                    <a href="https://github.com/${array[i].github}">Github Profile: ${array[i].github}</a>
+                </div>
+            </div>
+        
         `;
     }
+    
+    }
     return arrayCard
-
 }
 
 const firstHTML =
@@ -185,13 +214,15 @@ const firstHTML =
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
             <title>Team Profile</title>
         </head>
-        <header style="text-align: center;">
+        <header style="text-align: center;background-color: rgb(0, 153, 255);">
           <h1>Team Profile</h1>
         </header>
-        <body>
+        <body style="background-color: aqua;">
+        <div class="container-sm">
         `
 const lastHTML =
     `
+    </div>
     </body>
     </html>
     `
