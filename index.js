@@ -155,7 +155,8 @@ function createHTML(array) {
     for (i=0; i<array.length;i++) {
         
         arrayCard[i]=`
-            <div class="card" style="width: 18rem;">
+        <div class="container-sm">
+            <div class="card" style="width: 18rem;display:inline-block">
                 <div class="card-body">
                     ${array[i].name} <br>
                     ${array[i].role} <br>
@@ -166,6 +167,8 @@ function createHTML(array) {
                     Github: ${array[i].github} <br>
                 </div>
             </div>
+        </div>
+
         `;
     }
     return arrayCard
