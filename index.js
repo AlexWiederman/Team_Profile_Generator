@@ -137,7 +137,6 @@ function loopQuestions() {
             } else {
                 // createFiles()
                     const cards = createHTML(array)
-                    console.log(array)
 
                     var totalCards = ""
                 for (i=0; i<cards.length;i++) {
