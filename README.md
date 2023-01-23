@@ -1,6 +1,6 @@
 # Team Profile Generator
 
-
+<img width="959" alt="TeamGenerator" src="https://user-images.githubusercontent.com/115883489/214174590-5eee1816-5ba5-4cf4-8b4b-8c8e58f22982.PNG">
 
 https://user-images.githubusercontent.com/115883489/214173846-c4dcfef7-c887-4722-b25b-747365970be8.mp4
 
